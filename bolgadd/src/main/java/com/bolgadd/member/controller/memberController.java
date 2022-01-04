@@ -1,4 +1,4 @@
-package com.bolgadd.add;
+package com.bolgadd.member.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -13,18 +13,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.bolgadd.services.testServices;
+import com.bolgadd.member.services.memberServices;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class memberController {
 	
 	@Autowired
-	private testServices testServices;
+	private memberServices memberServices;
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(memberController.class);
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -37,11 +37,7 @@ public class HomeController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		
 		String formattedDate = dateFormat.format(date);
-		System.out.println(">>>>> 컨트롤러 진입");
-		List<Map<String, Object>> list = testServices.selectTest();
-		System.out.println(">>>>> list : " + list);
-		
-		System.out.println(">>>>> list.0.INDEX_ID : " + list.get(0).get("INDEX_ID"));
+		List<Map<String, Object>> list = memberServices.selectTest();
 		
 		Map<String, Object> map = list.get(0);
 		

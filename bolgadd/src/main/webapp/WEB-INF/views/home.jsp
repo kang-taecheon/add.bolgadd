@@ -15,6 +15,6 @@
 
 <P>  The time on the server is ${serverTime}. </P>
 
-<P> TEST : ${list.INDEX_ID} </P>
+<P> TEST : ${list} </P>
 </body>
 </html>

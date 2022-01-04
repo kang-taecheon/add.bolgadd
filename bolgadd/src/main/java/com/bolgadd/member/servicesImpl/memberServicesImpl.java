@@ -1,4 +1,4 @@
-package com.bolgadd.servicesImpl;
+package com.bolgadd.member.servicesImpl;
 
 import java.util.List;
 import java.util.Map;
@@ -6,18 +6,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bolgadd.dao.testDAO;
-import com.bolgadd.services.testServices;
+import com.bolgadd.member.dao.memberDAO;
+import com.bolgadd.member.services.memberServices;
 
 @Service
-public class testServicesImpl implements testServices {
+public class memberServicesImpl implements memberServices {
 
 	@Autowired
-	private testDAO testDAO;
+	private memberDAO testDAO;
 	
 	@Override
 	public List<Map<String, Object>> selectTest() {
-		System.out.println(">>>>> 서비스 임플 진입");
 		return testDAO.selectTest();
 	}
 
