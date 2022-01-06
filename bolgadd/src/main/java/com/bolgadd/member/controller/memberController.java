@@ -72,6 +72,7 @@ public class memberController {
 
 			if (passwordEncoder.matches(vo.getKtPw(), encPassword)) { // DB에 저장된 암호화된 비밀번호와 입력한 비밀번호를 비교하는 함수
 				session.setAttribute("ktId", map.get("KT_ID"));
+				session.setAttribute("ktName", map.get("KT_NAME"));
 				
 				return "login";
 			}else {

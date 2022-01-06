@@ -44,10 +44,14 @@
 <%-- <P>  The time on the server is ${serverTime}. </P> --%>
  
 <c:if test="${sessionScope.ktId eq null }">
-	<P>  session is null </P>
+	<P>  로그인 되어있지 않습니다. </P>
 </c:if>
 <c:if test="${sessionScope.ktId ne null }">
-	<P>  session is ${sessionScope.ktId} </P>
+	<P>  
+		현재 아이디 ${sessionScope.ktId}(으)로 로그인 되어있습니다. 
+		<br>
+		NAME : ${sessionScope.ktName}
+	</P>
 </c:if>
 
 <!-- 로그인하였을 때 로그인, 회원가입 버튼숨기고 로그아웃 버튼 표시해야함 -->

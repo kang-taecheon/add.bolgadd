@@ -26,6 +26,7 @@
 		SELECT
 			KT_ID
 			, KT_PW
+			, KT_NAME
 		FROM
 			KT_MEMBER
 		WHERE
