@@ -1,0 +1,84 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page trimDirectiveWhitespaces="true" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>Insert title here</title>
+</head>
+
+<script type="text/javascript">
+
+	$(document).ready(function(){
+		
+<%-- 		var pw = '<%=(String)session.getAttribute("ktPw")%>'; --%>
+<%-- 		var session = '<%=session%>'; --%>
+		
+// 		console.log(">>>>> session : " + session);
+		
+// 		if (pw == "notPw") { // 비밀번호가 불일치 할 때
+// 			alert("비밀번호가 틀립니다.");
+// 			sessionStorage.clear();
+// 		}else if (pw == "noMem") { // 회원 정보가 없을 때
+// 			alert("정보와 일치하는 회원이 없습니다.");
+// 			sessionStorage.clear();
+// 		}
+
+		
+		$("#loginBtn").on("click", function(){
+			var data = {
+				ktId : $("#ktId").val()
+				, ktPw : $("#ktPw").val()
+			}
+			console.log(data);
+			$.ajax({
+				type: 'POST',
+				url: "/member/login",
+				data: data,
+				dataType : "text",
+				success: function(data){
+					
+					if (data == 'pwNotEquals') {
+						alert("비밀번호가 다릅니다.");
+						$("#ktPw").focus();
+					}else if (data == 'noMember') {
+						alert("가입된 회원이 아닙니다.");
+					}else if (data == 'login') {
+						alert("로그인 되었습니다.");
+						location.href = "/home";
+					}
+					
+				},
+				error: function(request,status,error){
+					alert("로그인 도중 에러가 발생하였습니다 : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+				},
+				fail: function(){
+					alert("로그인에 실패하였습니다.");
+				}
+			});
+		});
+	})
+	
+</script>
+
+<body>
+
+<h1> 로그인 </h1>
+
+<fieldset>
+  <legend> 로그인 </legend>
+<!--   <form action="/member/loginPost" method="post"> -->
+    ID : <input type="text" name="ktId" id="ktId"> <br>
+    PW : <input type="password" name="ktPw" id="ktPw"> <br>
+<!--     <input type="submit" id="loginBtn" value="로그인">           -->
+    <input type="button" id="loginBtn" value="로그인">          
+    <input type="button" onclick="location.href='/member/register'" value="회원가입">
+    <input type="button" onclick="location.href='/home'" value="취소">
+<!--   </form>   -->
+</fieldset>
+
+</body>
+</html>

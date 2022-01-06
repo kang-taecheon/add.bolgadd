@@ -8,14 +8,21 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.bolgadd.member.vo.memberVo;
+
 @Repository
 public class memberDAO {
 	
 	@Inject
 	private SqlSession sqlSession;
 
-	public List<Map<String, Object>> selectTest() {
-		return sqlSession.selectList("memberMapper.selectMember");
+	// 회원가입
+	public int insertMember(memberVo vo) {
+		return sqlSession.insert("memberMapper.insertMember", vo);
 	}
-
+	
+	// 비교용 회원 조회
+	public Map<String, Object> selectMember (memberVo vo) {
+		return sqlSession.selectOne("memberMapper.selectMember", vo);
+	}
 }

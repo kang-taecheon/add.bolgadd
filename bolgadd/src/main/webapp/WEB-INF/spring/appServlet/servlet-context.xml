@@ -23,6 +23,5 @@
 	
 	<context:component-scan base-package="com.bolgadd.*" />
 	
-	
-	
+	<default-servlet-handler />
 </beans:beans>

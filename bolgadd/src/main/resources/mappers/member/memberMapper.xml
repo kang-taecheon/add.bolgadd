@@ -4,23 +4,9 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="memberMapper">
-	
-	<!-- test 조회 쿼리 -->
-	<select id="selectMember" resultType="java.util.HashMap">
-		select
-			KT_ID
-			, KT_PW
-			, KT_NAME
-			, REG_ID
-			, REG_DATE
-			, UPDATE_ID
-			, UPDATE_DATE
-		from 
-			KT_MEMBER
-	</select>
-	
+
 	<!-- 회원가입 -->
-	<insert id="insertMember" parameterType="java.util.HashMap">
+	<insert id="insertMember" parameterType="com.bolgadd.member.vo.memberVo">
 		INSERT INTO KT_MEMBER (
 			KT_ID,
 			KT_PW,
@@ -28,11 +14,21 @@
 			REG_ID,
 			REG_DATE
 		) VALUES (
-			#{KT_ID},
-			#{KT_PW},
-			#{KT_NAME},
-			#{REG_ID},
+			#{ktId},
+			#{ktPw},
+			#{ktName},
+			#{ktId},
 			now()
 		)
 	</insert>
+	
+	<select id="selectMember" parameterType="com.bolgadd.member.vo.memberVo" resultType="java.util.HashMap">
+		SELECT
+			KT_ID
+			, KT_PW
+		FROM
+			KT_MEMBER
+		WHERE
+			KT_ID = #{ktId}
+	</select>
 </mapper>
