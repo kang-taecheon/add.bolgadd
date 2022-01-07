@@ -2,14 +2,17 @@ package com.bolgadd.member.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bolgadd.member.services.memberServices;
 import com.bolgadd.member.vo.memberVo;
@@ -96,4 +99,23 @@ public class memberController {
 		return "logout";
 	}
 	
+	// 회원정보 수정
+	@RequestMapping(value="/member/memberUpdate")
+	public ModelAndView view(@ModelAttribute memberVo vo, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/memberUpdate");
+		
+		String id = (String)session.getAttribute("ktId"); //리턴 타입은 Object
+		
+		vo.setKtId(id);
+		
+		Map<String, Object> map = memberServices.selectMember(vo);
+		
+		session.setAttribute("ktId", map.get("KT_ID"));
+		session.setAttribute("ktName", map.get("KT_NAME"));
+		
+		mav.addObject("outVo", map);
+		
+		return mav;
+	}
 }

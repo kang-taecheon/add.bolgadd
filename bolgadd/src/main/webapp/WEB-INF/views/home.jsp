@@ -6,8 +6,7 @@
 <html>
 <head>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>Insert title here</title>
-<title>메인</title>
+	<title>메인</title>
 </head>
 
 <script type="text/javascript">
@@ -33,13 +32,19 @@
 				});
 			}
 		});
+		
+		$("#memberUpdate").on("click", function(){
+			var id = "${sessionScope.ktId}";
+			
+			alert( id );
+			
+			location.href="/member/memberUpdate";
+		});
 	})
 </script>
 
 <body>
-<h1>
-	Hello world!  
-</h1>
+<h1> Hello world! </h1>
 
 <%-- <P>  The time on the server is ${serverTime}. </P> --%>
  
@@ -54,12 +59,12 @@
 	</P>
 </c:if>
 
-<!-- 로그인하였을 때 로그인, 회원가입 버튼숨기고 로그아웃 버튼 표시해야함 -->
-<c:if test="${sessionScope.ktId eq null }"> <!-- 로그인이 되어있지 않을 때 -->
+<c:if test="${sessionScope.ktId eq null }"> <%-- 로그인이 되어있지 않을 때 --%>
 	<input type="button" value="로그인" onclick="location.href='/member/login'"/>
 	<input type="button" value="회원가입" onclick="location.href='/member/register'"/>
 </c:if>
-<c:if test="${sessionScope.ktId ne null }"> <!-- 로그인이 되었을 때 -->
+<c:if test="${sessionScope.ktId ne null }"> <%-- 로그인이 되었을 때 --%>
+	<input type="button" value="회원수정" id="memberUpdate" />
 	<input type="button" value="로그아웃" id="logout"/>
 </c:if>
 

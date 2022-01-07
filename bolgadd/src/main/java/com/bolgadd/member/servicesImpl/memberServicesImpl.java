@@ -23,6 +23,7 @@ public class memberServicesImpl implements memberServices {
 	}
 	
 	// 비교용 회원 조회
+	@Override
 	public Map<String, Object> selectMember (memberVo vo) {
 		return memberDAO.selectMember(vo);
 	}

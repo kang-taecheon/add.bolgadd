@@ -6,28 +6,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>Insert title here</title>
+	<title>로그인</title>
 </head>
 
 <script type="text/javascript">
 
 	$(document).ready(function(){
-		
-<%-- 		var pw = '<%=(String)session.getAttribute("ktPw")%>'; --%>
-<%-- 		var session = '<%=session%>'; --%>
-		
-// 		console.log(">>>>> session : " + session);
-		
-// 		if (pw == "notPw") { // 비밀번호가 불일치 할 때
-// 			alert("비밀번호가 틀립니다.");
-// 			sessionStorage.clear();
-// 		}else if (pw == "noMem") { // 회원 정보가 없을 때
-// 			alert("정보와 일치하는 회원이 없습니다.");
-// 			sessionStorage.clear();
-// 		}
 
-		
 		$("#loginBtn").on("click", function(){
 			var data = {
 				ktId : $("#ktId").val()
