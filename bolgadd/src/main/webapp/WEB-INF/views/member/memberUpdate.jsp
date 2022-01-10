@@ -27,7 +27,45 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		// 취소
+		$(".cencle").on("click", function(){
+			
+			location.href = "/home";
+					    
+		});
 		
+		$("#submit").on("click", function(){
+			if($("#tcNm").val()==""){
+				alert("성명을 입력해주세요.");
+				$("#tcNm").focus();
+				return false;
+			}
+			
+			var param = {
+				tcId : "${outVo.TC_ID}"
+				, tcPw : "${outVo.TC_PW}"
+				, tcNm : $("#tcNm").val()
+				, tcSn : "${outVo.TC_SN}"
+			}
+			
+			$.ajax({
+				type: 'POST',
+				url: "/member/memberUpdatePost",
+				data: param,
+				success: function(e){
+					
+					alert("회원정보가 수정되었습니다.");
+					location.href = "/home";
+					
+				},
+				error: function(request,status,error){
+					alert("회원정보 수정 도중 에러가 발생하였습니다 : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+				},
+				fail: function(){
+					alert("회원정보 수정에 실패하였습니다.");
+				}
+			});
+		});
 	});
 </script>
 
@@ -46,6 +84,17 @@
 		<br>
 		(컨트롤러에서 ModelAndView 리턴) KT_NAME : ${outVo.TC_NM }
 	</P>
+	
+	<section id="container">
+		<div class="form-group has-feedback">
+			<label class="control-label" for="tcName">성명</label>
+			<input class="form-control" type="text" id="tcNm" name="tcNm" value="${outVo.TC_NM }" />
+		</div>
+		<div class="form-group has-feedback">
+			<button class="btn btn-success" type="button" id="submit">수정</button>
+			<button class="cencle btn btn-danger" type="button">취소</button>
+		</div>
+	</section>
 </div>
 </body>
 </html>

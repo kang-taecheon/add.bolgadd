@@ -46,4 +46,26 @@
 		FROM
 			TC_MEMBER
 	</select>
+	
+	<!-- 로그인 로직 중 마지막 로그인 날짜 업데이트 -->
+	<update id="updateLastDt" parameterType="com.bolgadd.member.vo.memberVo">
+		UPDATE TC_MEMBER SET
+			TC_LAST_DT = NOW()
+			, UPDATE_ID = #{tcId}
+			, UPDATE_DATE = NOW()
+		WHERE
+			TC_ID = #{tcId}
+			AND TC_SN = #{tcSn}
+	</update>
+	
+	<!-- 회원정보 수정 -->
+	<update id="memberUpdate" parameterType="com.bolgadd.member.vo.memberVo">
+		UPDATE TC_MEMBER SET
+			TC_NM = #{tcNm}
+			, UPDATE_ID = #{tcId}
+			, UPDATE_DATE = NOW()
+		WHERE
+			TC_ID = #{tcId}
+			AND TC_SN = #{tcSn}
+	</update>
 </mapper>

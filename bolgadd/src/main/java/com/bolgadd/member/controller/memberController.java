@@ -72,6 +72,8 @@ public class memberController {
 	public String loginPost (memberVo vo, HttpSession session) {
 		
 		Map<String, Object> map = memberServices.selectMember(vo);
+		vo.setTcSn(map.get("TC_SN").toString());
+		vo.setTcId(map.get("TC_ID").toString());
 		
 		if (map != null) { // 회원 정보가 있음. 로그인 처리
 
@@ -83,6 +85,8 @@ public class memberController {
 				session.setAttribute("tcNm", map.get("TC_NM"));
 				session.setAttribute("tcSn", map.get("TC_SN"));
 				session.setAttribute("tcRyt", map.get("TC_RYT"));
+				
+				memberServices.updateLastDt(vo);
 				
 				return "login";
 			}else {
@@ -106,7 +110,7 @@ public class memberController {
 		return "logout";
 	}
 	
-	// 회원정보 수정
+	// 회원정보 수정 GET
 	@RequestMapping(value="/member/memberUpdate")
 	public ModelAndView view(@ModelAttribute memberVo vo, HttpSession session) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -119,6 +123,19 @@ public class memberController {
 		Map<String, Object> map = memberServices.selectMember(vo);
 		
 		mav.addObject("outVo", map);
+		
+		return mav;
+	}
+
+	// 회원정보 수정 POST
+	@RequestMapping(value="/member/memberUpdatePost")
+	public ModelAndView memberUpdate(@ModelAttribute memberVo vo, HttpSession session) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("/member/memberUpdate");
+		
+		memberServices.memberUpdate(vo);
+		
+		session.setAttribute("tcNm", vo.getTcNm());
 		
 		return mav;
 	}

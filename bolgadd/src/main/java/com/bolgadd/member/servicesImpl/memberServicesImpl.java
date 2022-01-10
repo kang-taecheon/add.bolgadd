@@ -34,4 +34,16 @@ public class memberServicesImpl implements memberServices {
 		return memberDAO.selectSnMax(vo);
 	}
 
+	// 로그인 로직 중 마지막 로그인 날짜 업데이트
+	@Override
+	public void updateLastDt(memberVo vo) {
+		memberDAO.updateLastDt(vo);
+	}
+
+	// 회원정보 수정
+	@Override
+	public void memberUpdate(memberVo vo) {
+		memberDAO.memberUpdate(vo);
+	}
+
 }
