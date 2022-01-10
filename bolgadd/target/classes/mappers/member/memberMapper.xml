@@ -33,6 +33,7 @@
 			, TC_PW
 			, TC_NM
 			, TC_SN
+			, TC_RYT
 		FROM
 			TC_MEMBER
 		WHERE

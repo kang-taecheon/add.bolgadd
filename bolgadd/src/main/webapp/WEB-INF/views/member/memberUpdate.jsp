@@ -34,7 +34,7 @@
 					    
 		});
 		
-		$("#submit").on("click", function(){
+		$("#update").on("click", function(){
 			if($("#tcNm").val()==""){
 				alert("성명을 입력해주세요.");
 				$("#tcNm").focus();
@@ -91,7 +91,7 @@
 			<input class="form-control" type="text" id="tcNm" name="tcNm" value="${outVo.TC_NM }" />
 		</div>
 		<div class="form-group has-feedback">
-			<button class="btn btn-success" type="button" id="submit">수정</button>
+			<button class="btn btn-success" type="button" id="update">수정</button>
 			<button class="cencle btn btn-danger" type="button">취소</button>
 		</div>
 	</section>

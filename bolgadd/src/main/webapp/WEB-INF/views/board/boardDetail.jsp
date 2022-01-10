@@ -5,9 +5,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>메인</title>
-	
+	<!-- 합쳐지고 최소화된 최신 CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<!-- 부가적인 테마 -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+ 	
+ 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<title>게시판 상세조회</title>
 <style type="text/css">
 	.top {
 		position: fixed;
@@ -23,28 +27,17 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-	})
+		console.log(">>>>> 게시판 상세조회 진입");
+	});
 </script>
 
 <jsp:include page="/WEB-INF/views/top.jsp" flush="false"></jsp:include>
 
 <body>
-<div class="bodyin">
-	<h1> Hello world! </h1>
-	
-	<%-- <P>  The time on the server is ${serverTime}. </P> --%>
-	 
-	<c:if test="${sessionScope.tcId eq null }">
-		<P>  로그인 되어있지 않습니다. </P>
-	</c:if>
-	<c:if test="${sessionScope.tcId ne null }">
-		<P>  
-			현재 아이디 ${sessionScope.tcId}(으)로 로그인 되어있습니다. 
-			<br>
-			NAME : ${sessionScope.tcNm}
-		</P>
-	</c:if>
-</div>
+	<div class="bodyin">
+		<p>
+			게시판 상세조회
+		</p>
+	</div>
 </body>
 </html>

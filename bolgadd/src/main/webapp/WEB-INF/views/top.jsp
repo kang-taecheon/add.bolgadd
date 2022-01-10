@@ -65,9 +65,9 @@
 		});
 		
 		$("#memberUpdate").on("click", function(){
-			var id = "${sessionScope.tcId}";
 			
 			location.href="/member/memberUpdate";
+			
 		});
 	})
 </script>
@@ -77,6 +77,7 @@
 	<div class='top'>
 		<div class="homeBtn">
 			<input type="button" value="홈" onclick="location.href='/home'" />
+			<input type="button" value="게시판" onclick="location.href='/board/boardList'" />
 		</div>
 		
 		<div class='main'>
