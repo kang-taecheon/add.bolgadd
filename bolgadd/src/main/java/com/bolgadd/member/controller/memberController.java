@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -46,8 +47,12 @@ public class memberController {
 		if (map != null) { // 중복된 아이디가 존재할 때
 			return "equals";
 		}else { // 중복된 아이디가 없을 때
-			String encPassword = passwordEncoder.encode(vo.getKtPw()); // 비밀번호 암호화
-			vo.setKtPw(encPassword); // 암호화된 비밀번호 vo에 넣기
+			String encPassword = passwordEncoder.encode(vo.getTcPw()); // 비밀번호 암호화
+			vo.setTcPw(encPassword); // 암호화된 비밀번호 vo에 넣기
+
+			// 회원테이블 일련번호 채번(MAX + 1)
+			String sn = memberServices.selectSnMax(vo);
+			vo.setTcSn(sn);
 			
 			int result = memberServices.insertMember(vo); // 회원가입 insert
 			return "notEquals";
@@ -71,11 +76,13 @@ public class memberController {
 		if (map != null) { // 회원 정보가 있음. 로그인 처리
 
 			// 패스워드 비교하여 일치했을 때에만 로그인 되도록
-			String encPassword = map.get("KT_PW").toString();
+			String encPassword = map.get("TC_PW").toString();
 
-			if (passwordEncoder.matches(vo.getKtPw(), encPassword)) { // DB에 저장된 암호화된 비밀번호와 입력한 비밀번호를 비교하는 함수
-				session.setAttribute("ktId", map.get("KT_ID"));
-				session.setAttribute("ktName", map.get("KT_NAME"));
+			if (passwordEncoder.matches(vo.getTcPw(), encPassword)) { // DB에 저장된 암호화된 비밀번호와 입력한 비밀번호를 비교하는 함수
+				session.setAttribute("tcId", map.get("TC_ID"));
+				session.setAttribute("tcNm", map.get("TC_NM"));
+				session.setAttribute("tcSn", map.get("TC_SN"));
+				session.setAttribute("tcRyt", map.get("TC_RYT"));
 				
 				return "login";
 			}else {
@@ -105,14 +112,11 @@ public class memberController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("/member/memberUpdate");
 		
-		String id = (String)session.getAttribute("ktId"); //리턴 타입은 Object
+		String id = (String)session.getAttribute("tcId"); //리턴 타입은 Object
 		
-		vo.setKtId(id);
+		vo.setTcId(id);
 		
 		Map<String, Object> map = memberServices.selectMember(vo);
-		
-		session.setAttribute("ktId", map.get("KT_ID"));
-		session.setAttribute("ktName", map.get("KT_NAME"));
 		
 		mav.addObject("outVo", map);
 		

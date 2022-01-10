@@ -12,6 +12,17 @@
  	
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title>회원가입</title>
+<style type="text/css">
+	.top {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+	.bodyin {
+		padding-top: 50px;
+	}
+</style>
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -23,26 +34,26 @@
 		})
 	
 		$("#submit").on("click", function(){
-			if($("#ktId").val()==""){
+			if($("#tcId").val()==""){
 				alert("아이디를 입력해주세요.");
-				$("#ktId").focus();
+				$("#tcId").focus();
 				return false;
 			}
-			if($("#ktPw").val()==""){
+			if($("#tcPw").val()==""){
 				alert("비밀번호를 입력해주세요.");
-				$("#ktPw").focus();
+				$("#tcPw").focus();
 				return false;
 			}
-			if($("#ktName").val()==""){
+			if($("#tcNm").val()==""){
 				alert("성명을 입력해주세요.");
-				$("#ktName").focus();
+				$("#tcNm").focus();
 				return false;
 			}
 			
 			var param = {
-				ktId : $("#ktId").val()
-				, ktPw : $("#ktPw").val()
-				, ktName : $("#ktName").val()
+				tcId : $("#tcId").val()
+				, tcPw : $("#tcPw").val()
+				, tcNm : $("#tcNm").val()
 			}
 			
 			$.ajax({
@@ -54,7 +65,7 @@
 					
 					if (e == 'equals') {
 						alert("같은 아이디가 존재합니다.");
-						$("#ktId").focus();
+						$("#tcId").focus();
 					}else if (e == 'notEquals') {
 						alert("회원가입에 성공하셨습니다." + e);
 						location.href = "/home";
@@ -74,25 +85,29 @@
 		
 	})
 </script>
+
+<jsp:include page="/WEB-INF/views/top.jsp" flush="false"></jsp:include>
+
 <body>
+<div class="bodyin">
 	<section id="container">
 		<div class="form-group has-feedback">
-			<label class="control-label" for="ktId">아이디</label>
-			<input class="form-control" type="text" id="ktId" name="ktId" />
+			<label class="control-label" for="tcId">아이디</label>
+			<input class="form-control" type="text" id="tcId" name="tcId" />
 		</div>
 		<div class="form-group has-feedback">
-			<label class="control-label" for="ktPw">패스워드</label>
-			<input class="form-control" type="password" id="ktPw" name="ktPw" />
+			<label class="control-label" for="tcPw">패스워드</label>
+			<input class="form-control" type="password" id="tcPw" name="tcPw" />
 		</div>
 		<div class="form-group has-feedback">
-			<label class="control-label" for="ktName">성명</label>
-			<input class="form-control" type="text" id="ktName" name="ktName" />
+			<label class="control-label" for="tcName">성명</label>
+			<input class="form-control" type="text" id="tcNm" name="tcNm" />
 		</div>
 		<div class="form-group has-feedback">
 			<button class="btn btn-success" type="button" id="submit">회원가입</button>
 			<button class="cencle btn btn-danger" type="button">취소</button>
 		</div>
 	</section>
-	
+</div>
 </body>
 </html>

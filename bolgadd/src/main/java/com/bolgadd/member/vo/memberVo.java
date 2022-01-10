@@ -1,55 +1,54 @@
 package com.bolgadd.member.vo;
 
 public class memberVo {
-	
-	private String ktId;
-	public String getKtId() {
-		return ktId;
+	private String tcSn;
+	public String getTcSn() {
+		return tcSn;
 	}
-	public void setKtId(String ktId) {
-		this.ktId = ktId;
+	public void setTcSn(String tcSn) {
+		this.tcSn = tcSn;
 	}
-	public String getKtPw() {
-		return ktPw;
+	public String getTcId() {
+		return tcId;
 	}
-	public void setKtPw(String ktPw) {
-		this.ktPw = ktPw;
+	public void setTcId(String tcId) {
+		this.tcId = tcId;
 	}
-	public String getKtName() {
-		return ktName;
+	public String getTcPw() {
+		return tcPw;
 	}
-	public void setKtName(String ktName) {
-		this.ktName = ktName;
+	public void setTcPw(String tcPw) {
+		this.tcPw = tcPw;
 	}
-	public String getRegID() {
-		return regID;
+	public String getTcNm() {
+		return tcNm;
 	}
-	public void setRegID(String regID) {
-		this.regID = regID;
+	public void setTcNm(String tcNm) {
+		this.tcNm = tcNm;
 	}
-	public String getRegDate() {
-		return regDate;
+	public String getUseYn() {
+		return useYn;
 	}
-	public void setRegDate(String regDate) {
-		this.regDate = regDate;
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
 	}
-	public String getUpdateId() {
-		return updateId;
+	public String getTcRyt() {
+		return tcRyt;
 	}
-	public void setUpdateId(String updateId) {
-		this.updateId = updateId;
+	public void setTcRyt(String tcRyt) {
+		this.tcRyt = tcRyt;
 	}
-	public String getUpdateDate() {
-		return updateDate;
+	public String getTcLastDt() {
+		return tcLastDt;
 	}
-	public void setUpdateDate(String updateDate) {
-		this.updateDate = updateDate;
+	public void setTcLastDt(String tcLastDt) {
+		this.tcLastDt = tcLastDt;
 	}
-	private String ktPw;
-	private String ktName;
-	private String regID;
-	private String regDate;
-	private String updateId;
-	private String updateDate;
+	private String tcId;
+	private String tcPw;
+	private String tcNm;
+	private String useYn;
+	private String tcRyt;
+	private String tcLastDt;
 
 }

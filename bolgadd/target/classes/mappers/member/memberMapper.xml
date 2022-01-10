@@ -7,29 +7,43 @@
 
 	<!-- 회원가입 -->
 	<insert id="insertMember" parameterType="com.bolgadd.member.vo.memberVo">
-		INSERT INTO KT_MEMBER (
-			KT_ID,
-			KT_PW,
-			KT_NAME,
-			REG_ID,
-			REG_DATE
+		INSERT INTO TC_MEMBER (
+			TC_SN
+			, TC_ID
+			, TC_PW
+			, TC_NM
+			, TC_RYT
+			, REG_ID
+			, REG_DATE
 		) VALUES (
-			#{ktId},
-			#{ktPw},
-			#{ktName},
-			#{ktId},
-			now()
+			#{tcSn}
+			, #{tcId}
+			, #{tcPw}
+			, #{tcNm}
+			, 'A'
+			, #{tcId}
+			, NOW()
 		)
 	</insert>
 	
+	<!-- 비교용 회원 조회 -->
 	<select id="selectMember" parameterType="com.bolgadd.member.vo.memberVo" resultType="java.util.HashMap">
 		SELECT
-			KT_ID
-			, KT_PW
-			, KT_NAME
+			TC_ID
+			, TC_PW
+			, TC_NM
+			, TC_SN
 		FROM
-			KT_MEMBER
+			TC_MEMBER
 		WHERE
-			KT_ID = #{ktId}
+			TC_ID = #{tcId}
+	</select>
+	
+	<!-- 회원 테이블 일련번호 채번(MAX + 1) -->
+	<select id="selectSnMax" parameterType="com.bolgadd.member.vo.memberVo" resultType="String">
+		SELECT
+			CONCAT( 'M_', LPAD( MAX( RIGHT(TC_SN, 5) ) + 1, 5, '0' ) ) AS TC_SN
+		FROM
+			TC_MEMBER
 	</select>
 </mapper>

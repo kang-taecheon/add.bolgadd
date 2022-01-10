@@ -12,5 +12,8 @@ public interface memberServices {
 	
 	// 비교용 회원 조회
 	public Map<String, Object> selectMember(memberVo vo);
+	
+	// 회원테이블 일련번호 채번(MAX + 1)
+	public String selectSnMax(memberVo vo);
 
 }

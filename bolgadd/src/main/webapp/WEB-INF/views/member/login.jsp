@@ -13,16 +13,28 @@
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<title>로그인</title>
+<style type="text/css">
+	.top {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+	}
+	.bodyin {
+		padding-top: 50px;
+	}
+</style>
 </head>
 
 <script type="text/javascript">
 
 	$(document).ready(function(){
-
+		$("#tcId").focus();
+		
 		$("#loginBtn").on("click", function(){
 			var data = {
-				ktId : $("#ktId").val()
-				, ktPw : $("#ktPw").val()
+				tcId : $("#tcId").val()
+				, tcPw : $("#tcPw").val()
 			}
 			console.log(data);
 			$.ajax({
@@ -34,7 +46,7 @@
 					
 					if (data == 'pwNotEquals') {
 						alert("비밀번호가 다릅니다.");
-						$("#ktPw").focus();
+						$("#tcPw").focus();
 					}else if (data == 'noMember') {
 						alert("가입된 회원이 아닙니다.");
 					}else if (data == 'login') {
@@ -55,21 +67,23 @@
 	
 </script>
 
+<jsp:include page="/WEB-INF/views/top.jsp" flush="false"></jsp:include>
+
 <body>
-
-<h1> 로그인 </h1>
-
-<fieldset>
-  <legend> 로그인 </legend>
-<!--   <form action="/member/loginPost" method="post"> -->
-    ID : <input type="text" name="ktId" id="ktId"> <br>
-    PW : <input type="password" name="ktPw" id="ktPw"> <br>
-<!--     <input type="submit" id="loginBtn" value="로그인">           -->
-    <input type="button" id="loginBtn" value="로그인">          
-    <input type="button" onclick="location.href='/member/register'" value="회원가입">
-    <input type="button" onclick="location.href='/home'" value="취소">
-<!--   </form>   -->
-</fieldset>
-
+<div class="bodyin">
+	<h1> 로그인 </h1>
+	
+	<fieldset>
+	  <legend> 로그인 </legend>
+	<!--   <form action="/member/loginPost" method="post"> -->
+	    ID : <input type="text" name="tcId" id="tcId"> <br>
+	    PW : <input type="password" name="tcPw" id="tcPw"> <br>
+	<!--     <input type="submit" id="loginBtn" value="로그인">           -->
+	    <input type="button" id="loginBtn" value="로그인">          
+	    <input type="button" onclick="location.href='/member/register'" value="회원가입">
+	    <input type="button" onclick="location.href='/home'" value="취소">
+	<!--   </form>   -->
+	</fieldset>
+</div>
 </body>
 </html>

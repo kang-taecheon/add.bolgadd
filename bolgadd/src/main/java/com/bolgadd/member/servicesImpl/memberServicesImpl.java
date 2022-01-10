@@ -28,4 +28,10 @@ public class memberServicesImpl implements memberServices {
 		return memberDAO.selectMember(vo);
 	}
 
+	// 회원테이블 일련번호 채번(MAX + 1)
+	@Override
+	public String selectSnMax(memberVo vo) {
+		return memberDAO.selectSnMax(vo);
+	}
+
 }

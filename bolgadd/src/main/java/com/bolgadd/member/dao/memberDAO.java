@@ -25,4 +25,9 @@ public class memberDAO {
 	public Map<String, Object> selectMember (memberVo vo) {
 		return sqlSession.selectOne("memberMapper.selectMember", vo);
 	}
+	
+	// 회원테이블 일련번호 채번(MAX + 1)
+	public String selectSnMax(memberVo vo) {
+		return sqlSession.selectOne("memberMapper.selectSnMax", vo);
+	}
 }
