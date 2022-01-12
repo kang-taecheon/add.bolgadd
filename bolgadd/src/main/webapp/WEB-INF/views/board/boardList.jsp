@@ -1,17 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
+	<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+	<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
  	
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>°Ô½ÃÆÇ</title>
+	<title>ììœ ê²Œì‹œíŒ</title>
 <style type="text/css">
 	.top {
 		position: fixed;
@@ -27,25 +28,138 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		console.log(">>>>> °Ô½ÃÆÇ ÁøÀÔ");
+		
+		$("#btnSearch").one("click", function(){
+			console.log("1111");
+		});
+		
+		
+// 		$("#btnSearch").on("click", function(){
+// 			console.log("ê²€ìƒ‰ ì‹œì‘");
+// 			var data = {
+// 				tcBoardTitel : $("#tcBoardTitel").val()
+// 				, tcNm : $("#tcNm").val()
+// 			}
+			
+// 			$.ajax({
+// 				data: data,
+// 				type: "POST",
+// 				url : '/board/boardList',
+// // 				dataType: 'json',
+// 				success: function(data) {
+// 	// 	 			console.log(JSON.stringify(data, null, 4));
+// 					console.log("ê²€ìƒ‰ success : " + data);
+// 				},
+// 				error: function(request,status,error){
+// 					alert("ì¡°íšŒ ë„ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤ : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+// 				},
+// 				fail: function(){
+// 					alert("ì¡°íšŒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
+// 				}
+// 			});
+// 		});
+		
 	});
+	
+	function detailBtn(sn) {
+		$("#tcBoardSn").val(sn);
+		$("#detailSubmit").attr("action", "/board/boardDetail"); // attribute setting
+		$("#detailSubmit").submit();
+	}
 </script>
 
 <jsp:include page="/WEB-INF/views/top.jsp" flush="false"></jsp:include>
 
+
+<form id="detailSubmit">
+	<input type="hidden" id="tcBoardSn" name="tcBoardSn">
+</form>
+
 <body>
 	<div class="bodyin">
 		<p>
-			°Ô½ÃÆÇ
+			ê²Œì‹œíŒ
 			<br>
-			(¼¼¼ÇGET) ÇöÀç ¾ÆÀÌµğ ${sessionScope.tcId}(À¸)·Î ·Î±×ÀÎ µÇ¾îÀÖ½À´Ï´Ù.
+			(ì„¸ì…˜GET) í˜„ì¬ ì•„ì´ë”” ${sessionScope.tcId}(ìœ¼)ë¡œ ë¡œê·¸ì¸ ë˜ì–´ìˆìŠµë‹ˆë‹¤.
 			<br>
-			(¼¼¼ÇGET) NAME : ${sessionScope.tcNm}
+			(ì„¸ì…˜GET) NAME : ${sessionScope.tcNm}
 			<br>
-			(¼¼¼ÇGET) SN : ${sessionScope.tcSn}
+			(ì„¸ì…˜GET) SN : ${sessionScope.tcSn}
 			<br>
-			(¼¼¼ÇGET) RYT : ${sessionScope.tcRyt}
+			(ì„¸ì…˜GET) RYT : ${sessionScope.tcRyt}
+			<br>
+			(ì»¨íŠ¸ë¡¤ëŸ¬GET) list : ${list}
 		</P>
+		
+		<form action="/board/boardList" method="post">
+<!-- 			<div> -->
+<!-- 				<div> -->
+<!-- 	            	<input type="text" value="" name="tcBoardTitel" id="tcBoardTitel" placeholder="ì œëª©" maxlength="50"/> -->
+<!-- 				</div> -->
+	
+<!-- 	            <div> -->
+<!-- 	            	<input type="text" value="" name="tcNm" id="tcNm" placeholder="ì‘ì„±ì" maxlength="25"/> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+			
+			<div>
+				<div>
+					<select id="selectOption" name="selectOption">
+						<option value="titel">ì œëª©</option>
+						<option value="name">ì´ë¦„</option>
+					</select>
+				</div>
+				<div>
+					<input type="text" value="" name="inputText" id="inputText" placeholder="" maxlength="50"/>
+				</div>
+			</div>
+			
+			<button class="button" id="btnSearch" name="btnSearch">ê²€ìƒ‰</button>
+		</form>
+		
+		<!-- table -->
+		<table class="table">
+        	<caption></caption>
+			<colgroup>
+				<col style="width: 5%">
+				<col style="width: 40%">
+				<col style="width: 20%">
+				<col style="width: 20%">
+				<col style="width: 5%">
+			</colgroup> 
+            <thead>
+            	<tr>
+                	<th style="text-align: center">NO</th>
+                    <th style="text-align: center">ì œëª©</th>
+                    <th style="text-align: center">ì‘ì„±ì</th>
+                    <th style="text-align: center">ì‘ì„±ì¼</th>
+                    <th style="text-align: center">ì¡°íšŒìˆ˜</th>
+				</tr>
+			</thead>
+            <tbody>
+            	<c:choose>
+                	<c:when test="${fn:length(list) != 0 }">
+	                	<c:forEach var="item" items="${list}" begin="0" step="1">
+		                	<td style="text-align: center">${item.RN}</td>
+<%-- 		                	<td>${item.TC_BOARD_TITEL}</td> --%>
+							<td><a href="javascript:detailBtn('${item.TC_BOARD_SN}');">${item.TC_BOARD_TITEL}</a></td>
+		                	<td style="text-align: center">${item.TC_NM}</td>
+		                	<td style="text-align: center">${item.REG_DATE}</td>
+		                	<td style="text-align: center">${item.CNT}</td>
+						</c:forEach>
+					</c:when>
+                	<c:otherwise>
+                		<td colspan="5" style="text-align: center;">
+                			ì¡°íšŒëœ ë°ì´í„°ê°€ ì—†ìŠµë‹ˆë‹¤.
+						</td>
+					</c:otherwise>
+				</c:choose>
+			</tbody>
+        </table>
+		<!-- //table -->
+		<c:if test="${sessionScope.tcRyt ne null}">
+			<p>ê¸€ì“°ê¸° ë²„íŠ¼ ìƒì„±í•  ìë¦¬</p>
+		</c:if>
 	</div>
 </body>
 </html>

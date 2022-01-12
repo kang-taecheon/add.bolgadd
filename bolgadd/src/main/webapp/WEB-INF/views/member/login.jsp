@@ -1,18 +1,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
+	<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+	<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 	
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>·Î±×ÀÎ</title>
+	<title>ë¡œê·¸ì¸</title>
 <style type="text/css">
 	.top {
 		position: fixed;
@@ -45,21 +45,21 @@
 				success: function(data){
 					
 					if (data == 'pwNotEquals') {
-						alert("ºñ¹Ğ¹øÈ£°¡ ´Ù¸¨´Ï´Ù.");
+						alert("ë¹„ë°€ë²ˆí˜¸ê°€ ë‹¤ë¦…ë‹ˆë‹¤.");
 						$("#tcPw").focus();
 					}else if (data == 'noMember') {
-						alert("°¡ÀÔµÈ È¸¿øÀÌ ¾Æ´Õ´Ï´Ù.");
+						alert("ê°€ì…ëœ íšŒì›ì´ ì•„ë‹™ë‹ˆë‹¤.");
 					}else if (data == 'login') {
-						alert("·Î±×ÀÎ µÇ¾ú½À´Ï´Ù.");
+						alert("ë¡œê·¸ì¸ ë˜ì—ˆìŠµë‹ˆë‹¤.");
 						location.href = "/home";
 					}
 					
 				},
 				error: function(request,status,error){
-					alert("·Î±×ÀÎ µµÁß ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+					alert("ë¡œê·¸ì¸ ë„ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤ : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
 				},
 				fail: function(){
-					alert("·Î±×ÀÎ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+					alert("ë¡œê·¸ì¸ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 				}
 			});
 		});
@@ -71,17 +71,16 @@
 
 <body>
 <div class="bodyin">
-	<h1> ·Î±×ÀÎ </h1>
+	<h1> ë¡œê·¸ì¸ </h1>
 	
 	<fieldset>
-	  <legend> ·Î±×ÀÎ </legend>
+	  <legend> ë¡œê·¸ì¸ </legend>
 	<!--   <form action="/member/loginPost" method="post"> -->
 	    ID : <input type="text" name="tcId" id="tcId"> <br>
 	    PW : <input type="password" name="tcPw" id="tcPw"> <br>
-	<!--     <input type="submit" id="loginBtn" value="·Î±×ÀÎ">           -->
-	    <input type="button" id="loginBtn" value="·Î±×ÀÎ">          
-	    <input type="button" onclick="location.href='/member/register'" value="È¸¿ø°¡ÀÔ">
-	    <input type="button" onclick="location.href='/home'" value="Ãë¼Ò">
+	    <input type="button" id="loginBtn" value="ë¡œê·¸ì¸">          
+	    <input type="button" onclick="location.href='/member/register'" value="íšŒì›ê°€ì…">
+	    <input type="button" onclick="location.href='/home'" value="ì·¨ì†Œ">
 	<!--   </form>   -->
 	</fieldset>
 </div>

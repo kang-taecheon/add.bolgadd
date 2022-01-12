@@ -1,12 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>¸ÞÀÎ</title>
+	<title>ë©”ì¸</title>
 	
 <style type="text/css">
 	.top {
@@ -36,11 +36,11 @@
 	<%-- <P>  The time on the server is ${serverTime}. </P> --%>
 	 
 	<c:if test="${sessionScope.tcId eq null }">
-		<P>  ·Î±×ÀÎ µÇ¾îÀÖÁö ¾Ê½À´Ï´Ù. </P>
+		<P>  ë¡œê·¸ì¸ ë˜ì–´ìžˆì§€ ì•ŠìŠµë‹ˆë‹¤. </P>
 	</c:if>
 	<c:if test="${sessionScope.tcId ne null }">
 		<P>  
-			ÇöÀç ¾ÆÀÌµð ${sessionScope.tcId}(À¸)·Î ·Î±×ÀÎ µÇ¾îÀÖ½À´Ï´Ù. 
+			í˜„ìž¬ ì•„ì´ë”” ${sessionScope.tcId}(ìœ¼)ë¡œ ë¡œê·¸ì¸ ë˜ì–´ìžˆìŠµë‹ˆë‹¤. 
 			<br>
 			NAME : ${sessionScope.tcNm}
 		</P>

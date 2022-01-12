@@ -5,4 +5,92 @@
 
 <mapper namespace="boardMapper">
 
+	<select id="countBoard" resultType="int">
+		SELECT 
+			COUNT(*) 
+		FROM 
+			TC_BOARD A 
+			LEFT OUTER JOIN TC_MEMBER B
+			ON A.REG_ID = B.TC_ID 
+		WHERE
+			A.USE_YN = 'Y'
+			AND A.TC_BOARD_KIND = 'F' <!-- F:자유게시판, N:공지사항 -->
+			<if test='selectOption == "titel"'>
+				AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
+			</if>
+			<if test='selectOption == "name"'>
+				AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+			</if>
+	</select>
+
+	<!-- 자유게시판 조회 -->
+	<select id="selectFreeBoardList" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			D.*
+		FROM (
+			SELECT
+				ROW_NUMBER() OVER(ORDER BY C.TC_BOARD_SN ) AS RN
+				, C.*
+			FROM (
+				SELECT
+					A.TC_BOARD_TITEL <!-- 게시글 제목 -->
+					, A.TC_BOARD_CN <!-- 게시글 내용 -->
+					, A.REG_ID <!-- 작성자 -->
+					, A.TC_BOARD_SN <!-- 게시글 일련번호 -->
+					, B.TC_NM <!-- 작성자 이름 -->
+					, A.REG_DATE <!-- 작성일 -->
+					, A.TC_BOARD_KIND <!-- 게시판종류코드 -->
+					, A.CNT <!-- 조회수 -->
+				FROM
+					TC_BOARD A 
+					LEFT OUTER JOIN TC_MEMBER B
+					ON A.REG_ID = B.TC_ID 
+				WHERE
+					A.USE_YN = 'Y'
+					AND A.TC_BOARD_KIND = 'F' <!-- F:자유게시판, N:공지사항 -->
+					<if test='selectOption == "titel"'>
+						AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
+					</if>
+					<if test='selectOption == "name"'>
+						AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+					</if>
+				) C
+			) D
+		limit #{start}, #{end}
+	</select>
+
+	<!-- 자유게시판 상세조회 -->
+	<select id="selectFreeBoardDetail" parameterType="java.util.HashMap" resultType="java.util.HashMap">
+		SELECT
+			A.TC_BOARD_TITEL <!-- 게시글 제목 -->
+			, A.TC_BOARD_CN <!-- 게시글 내용 -->
+			, A.REG_ID <!-- 작성자 -->
+			, A.TC_BOARD_SN <!-- 게시글 일련번호 -->
+			, B.TC_FILE_SN <!-- 파일 일련번호 -->
+			, B.TC_SN <!-- 파일업로드한 유저 일련번호 -->
+			, B.TC_FILE_USER_ID <!-- 파일업로드한 유저ID -->
+			, B.TC_FILE_NM <!-- 파일 이름 -->
+			, B.TC_FILE_URL <!-- 파일URL -->
+			, B.TC_FILE_EXT <!-- 파일 확장자 -->
+			, C.TC_NM <!-- 작성자 이름 -->
+			, A.TC_BOARD_KIND <!-- 게시판종류코드 -->
+		FROM
+			TC_BOARD A 
+			LEFT OUTER JOIN TC_FILE B
+			ON A.TC_BOARD_SN = B.TC_BOARD_SN
+			LEFT OUTER JOIN TC_MEMBER C 
+			ON A.REG_ID = C.TC_ID 
+		WHERE
+			A.USE_YN = 'Y'
+			AND A.TC_BOARD_KIND = 'F' -- F:자유게시판, N:공지사항 -->
+			AND A.TC_BOARD_SN = #{tcBoardSn}
+	</select>
+	
+	<!-- 자유게시판 조회수 증가 -->
+	<update id="cntUpdate" parameterType="java.util.HashMap">
+		UPDATE TC_BOARD SET
+			CNT = (SELECT MAX(CNT) + 1 AS CNT FROM TC_BOARD WHERE TC_BOARD_SN = #{tcBoardSn})
+		WHERE
+			TC_BOARD_SN = #{tcBoardSn}
+	</update>
 </mapper>

@@ -1,17 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
+	<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+	<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
  	
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>È¸¿ø°¡ÀÔ</title>
+	<title>íšŒì›ê°€ì…</title>
 <style type="text/css">
 	.top {
 		position: fixed;
@@ -26,7 +26,7 @@
 </head>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// Ãë¼Ò
+		// ì·¨ì†Œ
 		$(".cencle").on("click", function(){
 			
 			location.href = "/home";
@@ -35,17 +35,17 @@
 	
 		$("#submit").on("click", function(){
 			if($("#tcId").val()==""){
-				alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				alert("ì•„ì´ë””ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				$("#tcId").focus();
 				return false;
 			}
 			if($("#tcPw").val()==""){
-				alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				alert("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				$("#tcPw").focus();
 				return false;
 			}
 			if($("#tcNm").val()==""){
-				alert("¼º¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				alert("ì„±ëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				$("#tcNm").focus();
 				return false;
 			}
@@ -64,19 +64,19 @@
 				success: function(e){
 					
 					if (e == 'equals') {
-						alert("°°Àº ¾ÆÀÌµğ°¡ Á¸ÀçÇÕ´Ï´Ù.");
+						alert("ê°™ì€ ì•„ì´ë””ê°€ ì¡´ì¬í•©ë‹ˆë‹¤.");
 						$("#tcId").focus();
 					}else if (e == 'notEquals') {
-						alert("È¸¿ø°¡ÀÔ¿¡ ¼º°øÇÏ¼Ì½À´Ï´Ù." + e);
+						alert("íšŒì›ê°€ì…ì— ì„±ê³µí•˜ì…¨ìŠµë‹ˆë‹¤." + e);
 						location.href = "/home";
 					}
 					
 				},
 				error: function(request,status,error){
-					alert("È¸¿ø°¡ÀÔ µµÁß ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+					alert("íšŒì›ê°€ì… ë„ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤ : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
 				},
 				fail: function(){
-					alert("È¸¿ø°¡ÀÔ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+					alert("íšŒì›ê°€ì…ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 				}
 			});
 		});
@@ -92,20 +92,20 @@
 <div class="bodyin">
 	<section id="container">
 		<div class="form-group has-feedback">
-			<label class="control-label" for="tcId">¾ÆÀÌµğ</label>
+			<label class="control-label" for="tcId">ì•„ì´ë””</label>
 			<input class="form-control" type="text" id="tcId" name="tcId" />
 		</div>
 		<div class="form-group has-feedback">
-			<label class="control-label" for="tcPw">ÆĞ½º¿öµå</label>
+			<label class="control-label" for="tcPw">íŒ¨ìŠ¤ì›Œë“œ</label>
 			<input class="form-control" type="password" id="tcPw" name="tcPw" />
 		</div>
 		<div class="form-group has-feedback">
-			<label class="control-label" for="tcName">¼º¸í</label>
+			<label class="control-label" for="tcName">ì„±ëª…</label>
 			<input class="form-control" type="text" id="tcNm" name="tcNm" />
 		</div>
 		<div class="form-group has-feedback">
-			<button class="btn btn-success" type="button" id="submit">È¸¿ø°¡ÀÔ</button>
-			<button class="cencle btn btn-danger" type="button">Ãë¼Ò</button>
+			<button class="btn btn-success" type="button" id="submit">íšŒì›ê°€ì…</button>
+			<button class="cencle btn btn-danger" type="button">ì·¨ì†Œ</button>
 		</div>
 	</section>
 </div>

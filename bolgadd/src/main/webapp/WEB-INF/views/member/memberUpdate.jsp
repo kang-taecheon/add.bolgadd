@@ -1,17 +1,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
+	<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+	<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
  	
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<title>È¸¿øÁ¤º¸ ¼öÁ¤</title>
+	<title>íšŒì›ì •ë³´ ìˆ˜ì •</title>
 <style type="text/css">
 	.top {
 		position: fixed;
@@ -27,7 +27,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		// Ãë¼Ò
+		// ì·¨ì†Œ
 		$(".cencle").on("click", function(){
 			
 			location.href = "/home";
@@ -36,7 +36,7 @@
 		
 		$("#update").on("click", function(){
 			if($("#tcNm").val()==""){
-				alert("¼º¸íÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+				alert("ì„±ëª…ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 				$("#tcNm").focus();
 				return false;
 			}
@@ -54,15 +54,15 @@
 				data: param,
 				success: function(e){
 					
-					alert("È¸¿øÁ¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.");
+					alert("íšŒì›ì •ë³´ê°€ ìˆ˜ì •ë˜ì—ˆìŠµë‹ˆë‹¤.");
 					location.href = "/home";
 					
 				},
 				error: function(request,status,error){
-					alert("È¸¿øÁ¤º¸ ¼öÁ¤ µµÁß ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+					alert("íšŒì›ì •ë³´ ìˆ˜ì • ë„ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤ : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
 				},
 				fail: function(){
-					alert("È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+					alert("íšŒì›ì •ë³´ ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 				}
 			});
 		});
@@ -74,25 +74,25 @@
 <body>
 <div class="bodyin">
 	<P>  
-		(¼¼¼ÇGET) ÇöÀç ¾ÆÀÌµğ ${sessionScope.tcId}(À¸)·Î ·Î±×ÀÎ µÇ¾îÀÖ½À´Ï´Ù.
+		(ì„¸ì…˜GET) í˜„ì¬ ì•„ì´ë”” ${sessionScope.tcId}(ìœ¼)ë¡œ ë¡œê·¸ì¸ ë˜ì–´ìˆìŠµë‹ˆë‹¤.
 		<br>
-		(¼¼¼ÇGET) NAME : ${sessionScope.tcNm}
+		(ì„¸ì…˜GET) NAME : ${sessionScope.tcNm}
 		<br>
-		(ÄÁÆ®·Ñ·¯¿¡¼­ ModelAndView ¸®ÅÏ) KT_ID : ${outVo.TC_ID}
+		(ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ModelAndView ë¦¬í„´) KT_ID : ${outVo.TC_ID}
 		<br>
-		(ÄÁÆ®·Ñ·¯¿¡¼­ ModelAndView ¸®ÅÏ) KT_PW : ${outVo.TC_PW}
+		(ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ModelAndView ë¦¬í„´) KT_PW : ${outVo.TC_PW}
 		<br>
-		(ÄÁÆ®·Ñ·¯¿¡¼­ ModelAndView ¸®ÅÏ) KT_NAME : ${outVo.TC_NM }
+		(ì»¨íŠ¸ë¡¤ëŸ¬ì—ì„œ ModelAndView ë¦¬í„´) KT_NAME : ${outVo.TC_NM }
 	</P>
 	
 	<section id="container">
 		<div class="form-group has-feedback">
-			<label class="control-label" for="tcName">¼º¸í</label>
+			<label class="control-label" for="tcName">ì„±ëª…</label>
 			<input class="form-control" type="text" id="tcNm" name="tcNm" value="${outVo.TC_NM }" />
 		</div>
 		<div class="form-group has-feedback">
-			<button class="btn btn-success" type="button" id="update">¼öÁ¤</button>
-			<button class="cencle btn btn-danger" type="button">Ãë¼Ò</button>
+			<button class="btn btn-success" type="button" id="update">ìˆ˜ì •</button>
+			<button class="cencle btn btn-danger" type="button">ì·¨ì†Œ</button>
 		</div>
 	</section>
 </div>

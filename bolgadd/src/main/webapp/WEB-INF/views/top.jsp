@@ -1,13 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
 <!DOCTYPE html>
 <html>
 <head>
-	<!-- ÇÕÃÄÁö°í ÃÖ¼ÒÈ­µÈ ÃÖ½Å CSS -->
+	<!-- í•©ì³ì§€ê³  ìµœì†Œí™”ëœ ìµœì‹  CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<!-- ºÎ°¡ÀûÀÎ Å×¸¶ -->
+	<!-- ë¶€ê°€ì ì¸ í…Œë§ˆ -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
  	
  	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -43,22 +43,22 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#logout").on("click", function(){
-			if( confirm("Á¤¸» ·Î±×¾Æ¿ô ÇÏ½Ã°Ú½À´Ï±î?")){
+			if( confirm("ì •ë§ ë¡œê·¸ì•„ì›ƒ í•˜ì‹œê² ìŠµë‹ˆê¹Œ?")){
 				$.ajax({
 					type: 'POST',
 					url: "/member/logout",
 					dataType : "text",
 					success: function(data){
 						
-						alert("·Î±×¾Æ¿ôµÇ¾ú½À´Ï´Ù");
+						alert("ë¡œê·¸ì•„ì›ƒë˜ì—ˆìŠµë‹ˆë‹¤");
 						location.href = '/home';
 						
 					},
 					error: function(request,status,error){
-						alert("·Î±×¾Æ¿ô µµÁß ¿¡·¯°¡ ¹ß»ıÇÏ¿´½À´Ï´Ù : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+						alert("ë¡œê·¸ì•„ì›ƒ ë„ì¤‘ ì—ëŸ¬ê°€ ë°œìƒí•˜ì˜€ìŠµë‹ˆë‹¤ : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
 					},
 					fail: function(){
-						alert("·Î±×¾Æ¿ô¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù.");
+						alert("ë¡œê·¸ì•„ì›ƒì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.");
 					}
 				});
 			}
@@ -76,8 +76,8 @@
 	
 	<div class='top'>
 		<div class="homeBtn">
-			<input type="button" value="È¨" onclick="location.href='/home'" />
-			<input type="button" value="°Ô½ÃÆÇ" onclick="location.href='/board/boardList'" />
+			<input type="button" value="í™ˆ" onclick="location.href='/home'" />
+			<input type="button" value="ê²Œì‹œíŒ" onclick="location.href='/board/boardList'" />
 		</div>
 		
 		<div class='main'>
@@ -85,13 +85,13 @@
 		</div>
 
 		<div class='btn'>
-			<c:if test="${sessionScope.tcId eq null }"> <%-- ·Î±×ÀÎÀÌ µÇ¾îÀÖÁö ¾ÊÀ» ¶§ --%>
-				<input type="button" value="·Î±×ÀÎ" onclick="location.href='/member/login'"/>
-				<input type="button" value="È¸¿ø°¡ÀÔ" onclick="location.href='/member/register'"/>
+			<c:if test="${sessionScope.tcId eq null }"> <%-- ë¡œê·¸ì¸ì´ ë˜ì–´ìˆì§€ ì•Šì„ ë•Œ --%>
+				<input type="button" value="ë¡œê·¸ì¸" onclick="location.href='/member/login'"/>
+				<input type="button" value="íšŒì›ê°€ì…" onclick="location.href='/member/register'"/>
 			</c:if>
-			<c:if test="${sessionScope.tcId ne null }"> <%-- ·Î±×ÀÎÀÌ µÇ¾úÀ» ¶§ --%>
-				<input type="button" value="È¸¿ø¼öÁ¤" id="memberUpdate" />
-				<input type="button" value="·Î±×¾Æ¿ô" id="logout"/>
+			<c:if test="${sessionScope.tcId ne null }"> <%-- ë¡œê·¸ì¸ì´ ë˜ì—ˆì„ ë•Œ --%>
+				<input type="button" value="íšŒì›ìˆ˜ì •" id="memberUpdate" />
+				<input type="button" value="ë¡œê·¸ì•„ì›ƒ" id="logout"/>
 			</c:if>
 		</div>
 	</div>
