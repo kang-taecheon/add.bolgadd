@@ -15,11 +15,13 @@
 		WHERE
 			A.USE_YN = 'Y'
 			AND A.TC_BOARD_KIND = 'F' <!-- F:자유게시판, N:공지사항 -->
-			<if test='selectOption == "titel"'>
-				AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
-			</if>
-			<if test='selectOption == "name"'>
-				AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+			<if test="inputText != '' and inputText != null">
+				<if test='selectOption == "titel"'>
+					AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
+				</if>
+				<if test='selectOption == "name"'>
+					AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+				</if>
 			</if>
 	</select>
 
@@ -48,15 +50,17 @@
 				WHERE
 					A.USE_YN = 'Y'
 					AND A.TC_BOARD_KIND = 'F' <!-- F:자유게시판, N:공지사항 -->
-					<if test='selectOption == "titel"'>
-						AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
-					</if>
-					<if test='selectOption == "name"'>
-						AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+					<if test="inputText != '' and inputText != null">
+						<if test='selectOption == "titel"'>
+							AND A.TC_BOARD_TITEL LIKE CONCAT('%',#{inputText},'%')
+						</if>
+						<if test='selectOption == "name"'>
+							AND B.TC_NM LIKE CONCAT('%',#{inputText},'%')
+						</if>
 					</if>
 				) C
 			) D
-		limit #{start}, #{end}
+		LIMIT #{start}, #{end}
 	</select>
 
 	<!-- 자유게시판 상세조회 -->
@@ -82,7 +86,7 @@
 			ON A.REG_ID = C.TC_ID 
 		WHERE
 			A.USE_YN = 'Y'
-			AND A.TC_BOARD_KIND = 'F' -- F:자유게시판, N:공지사항 -->
+			AND A.TC_BOARD_KIND = 'F' <!-- F:자유게시판, N:공지사항 -->
 			AND A.TC_BOARD_SN = #{tcBoardSn}
 	</select>
 	

@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bolgadd.board.dao.boardDAO;
 import com.bolgadd.board.services.boardServices;
-import com.bolgadd.paging.pagingVo;
+import com.bolgadd.board.vo.PageVo;
 
 /**
  * 게시판 관련 컨트롤러
@@ -23,31 +24,29 @@ public class boardController {
 	
 	@Autowired
 	private boardServices boardServices;
-	
+
 	// 자유게시판 조회
 	@RequestMapping("/board/boardList")
 	@ResponseBody
 	public ModelAndView selectFreeBoardList(@RequestParam Map<String, Object> param, HttpSession session,
-			pagingVo vo, @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			@RequestParam(defaultValue="1") int curPage) {
 		ModelAndView mav = new  ModelAndView("jsonView");
+
+		int count = boardServices.countBoard(param); // 페이징에 필요한 count조회
 		
-		int total = boardServices.countBoard(param);
-		if (nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "5";
-		} else if (nowPage == null) {
-			nowPage = "1";
-		} else if (cntPerPage == null) { 
-			cntPerPage = "5";
-		}
-		vo = new pagingVo(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		// 페이징 관련 시작
+    	PageVo pv = new PageVo(count, curPage);
+    	int start = pv.getPageBegin();
+    	int end = pv.getPageEnd();
+    	param.put("start", start);
+    	param.put("end", end);
+    	mav.addObject("pv", pv); // 페이징 정보
+    	// 페이징 관련 끝
 		
 		List<Map<String, Object>> listMap = boardServices.selectFreeBoardList(param);
-
+		
 		mav.setViewName("/board/boardList");
 		
-		mav.addObject("paging", vo);
 		mav.addObject("list", listMap);
 		
 		return mav;

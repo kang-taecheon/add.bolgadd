@@ -68,13 +68,13 @@
 			<tbody>
 				<tr>
 					<th>제목</th>
-					<td>${map.TC_BOARD_TITEL}</td>
+					<td><input class="form-control" type="text" style="width:80%;" id="boardTitel" name="boardTitel" value="${map.TC_BOARD_TITEL}"/></td>
 					<th>작성자</th>
 					<td>${map.TC_NM}</td>
 				</tr>
 				<tr>
 					<th>내용</th>
-					<td>${map.TC_BOARD_CN}</td>
+					<td colspan="3">${map.TC_BOARD_CN}</td>
 				</tr>
 				<tr>
 					<th>파일이름</th>

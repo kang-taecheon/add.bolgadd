@@ -23,41 +23,57 @@
 	.bodyin {
 		padding-top: 50px;
 	}
+	
+	/* 페이징 css */
+	.page-wrap{margin-top: 15px;}
+	.page-wrap .page{display: flex; justify-content: center;}
+	.page-wrap .page > a{position: relative; width: 20px; text-indent: -9999px; border: 1px solid #5d738d; border-radius: 2px; }
+	.page-wrap .page .btn-page-prev:before{content:''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%) rotate(180deg); width: 7px; height: 5px; background: url(../images/btn-page-on.png) #fff center center no-repeat; background-size: 5px 7px;}
+	.page-wrap .page .btn-page-prev.disabled{border: 1px solid #93a3b7;}
+	.page-wrap .page .btn-page-prev.disabled:before{background: url(../images/btn-page-off.png) center center no-repeat; background-size: 5px 7px;}
+	.page-wrap .page .btn-page-next:before{content:''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 7px; height: 5px; background: url(../images/btn-page-on.png) #fff center center no-repeat; background-size: 5px 7px;}
+	.page-wrap .page .btn-page-next.disabled{border: 1px solid #93a3b7;}
+	.page-wrap .page ul{display: flex; margin: 0 10px; text-align: center;}
+	.page-wrap .page ul li{position: relative; width: 26px;}
+	.page-wrap .page ul li.active:before{content: ''; width: 8px; height: 1px; position: absolute; bottom: 4px; background: #222; left: 50%; transform: translateX(-45%);}
+	.page-wrap .page ul li.active a{color: #222; font-weight: bold;}
+	.page-wrap .page ul li a{font-size: 13px; letter-spacing: -0.33px; text-align: center; color: #666666;}
+	.page-wrap .page ul li:hover a{color: #222; font-weight: bold;}
 </style>
 </head>
 
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		$("#btnSearch").one("click", function(){
-			console.log("1111");
-		});
-		
-		
-// 		$("#btnSearch").on("click", function(){
-// 			console.log("검색 시작");
-// 			var data = {
-// 				tcBoardTitel : $("#tcBoardTitel").val()
-// 				, tcNm : $("#tcNm").val()
-// 			}
-			
-// 			$.ajax({
-// 				data: data,
-// 				type: "POST",
-// 				url : '/board/boardList',
-// // 				dataType: 'json',
-// 				success: function(data) {
-// 	// 	 			console.log(JSON.stringify(data, null, 4));
-// 					console.log("검색 success : " + data);
-// 				},
-// 				error: function(request,status,error){
-// 					alert("조회 도중 에러가 발생하였습니다 : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
-// 				},
-// 				fail: function(){
-// 					alert("조회에 실패하였습니다.");
-// 				}
-// 			});
+// 		$("#btnSearch").one("click", function(){
+// 			console.log("1111");
 // 		});
+		
+		
+		$("#btnSearch").on("click", function(){
+			console.log("검색 시작");
+			var data = {
+				tcBoardTitel : $("#tcBoardTitel").val()
+				, tcNm : $("#tcNm").val()
+			}
+			
+			$.ajax({
+				data: data,
+				type: "POST",
+				url : '/board/boardList',
+// 				dataType: 'json',
+				success: function(data) {
+	// 	 			console.log(JSON.stringify(data, null, 4));
+					console.log("검색 success : " + data);
+				},
+				error: function(request,status,error){
+					alert("조회 도중 에러가 발생하였습니다 : "+request.status+"\n"+"message : "+request.responseText+"\n"+"error : "+error);
+				},
+				fail: function(){
+					alert("조회에 실패하였습니다.");
+				}
+			});
+		});
 		
 	});
 	
@@ -65,6 +81,13 @@
 		$("#tcBoardSn").val(sn);
 		$("#detailSubmit").attr("action", "/board/boardDetail"); // attribute setting
 		$("#detailSubmit").submit();
+	}
+	
+	// 페이징 클릭 이벤트
+	function list(page){
+// 		$("#boardListForm").attr("action", "/mngBbsSelect.do");
+	    $("#curPage").val(page);
+	    $("#boardListForm").submit();
 	}
 </script>
 
@@ -91,7 +114,8 @@
 			(컨트롤러GET) list : ${list}
 		</P>
 		
-		<form action="/board/boardList" method="post">
+		<form id="boardListForm" action="/board/boardList" method="post">
+			<input type="hidden" id="curPage" name="curPage">
 <!-- 			<div> -->
 <!-- 				<div> -->
 <!-- 	            	<input type="text" value="" name="tcBoardTitel" id="tcBoardTitel" placeholder="제목" maxlength="50"/> -->
@@ -156,7 +180,33 @@
 				</c:choose>
 			</tbody>
         </table>
-		<!-- //table -->
+        <!-- //table -->
+        
+        <!-- 페이징 시작 -->
+        <div class="page-wrap">
+			<div class="page">
+				<c:if test="${pv.curBlock > 1}">
+			  		<a href="javascript:list('${pv.prevPage}')" class="btn-page-prev disabled">이전</a>
+			  	</c:if>
+			  	<ul>
+			  	<c:forEach var="num" begin="${pv.blockBegin}" end="${pv.blockEnd}">
+			  		<c:choose>
+			  			<c:when test="${num == pv.curPage}">
+			  				<li style="list-style: none;" class="active">${num}</li>
+			  			</c:when>
+			  			<c:otherwise>
+			  				<li style="list-style: none;" ><a href="javascript:list('${num}')">${num}</a></li>
+			  			</c:otherwise>
+			  		</c:choose>
+			  	</c:forEach>
+			  	</ul>
+			  	<c:if test="${pv.curBlock <= pv.totBlock}">
+			  		<a href="javascript:list('${pv.nextPage}')" class="btn-page-next">다음</a>
+			  	</c:if>
+			</div>
+		</div>
+        <!-- 페이징 끝 -->
+        
 		<c:if test="${sessionScope.tcRyt ne null}">
 			<p>글쓰기 버튼 생성할 자리</p>
 		</c:if>
